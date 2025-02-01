@@ -1,9 +1,9 @@
-#include "QueueFamily.h"
+#include "QueueFamilyIndices.h"
 
 #include <vector>
 
-namespace vul::Graphics {
-	QueueFamilyIndices FindQueueFamilies(VkPhysicalDevice device, VkSurfaceKHR surface) {
+namespace vul {
+	QueueFamilyIndices QueueFamilyIndices::Find(VkPhysicalDevice device, VkSurfaceKHR surface) {
 		QueueFamilyIndices indices;
 
 		uint32_t queueFamilyCount = 0;

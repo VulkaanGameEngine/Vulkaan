@@ -1,11 +1,11 @@
-#include "SwapChainSupport.h"
+#include "SwapChainSupportDetails.h"
 
 #include <vul/core/Log.h>
 
 #include <algorithm>
 
 namespace vul::Graphics {
-	SwapChainSupportDetails QuerySwapChainSupport(VkPhysicalDevice device, VkSurfaceKHR surface) {
+	SwapChainSupportDetails SwapChainSupportDetails::Query(VkPhysicalDevice device, VkSurfaceKHR surface) {
 		SwapChainSupportDetails details;
 
 		// capabilities
@@ -57,7 +57,7 @@ namespace vul::Graphics {
 	}
 
 	VkExtent2D ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities, GLFWwindow* window) {
-		if (capabilities.currentExtent.width == std::numeric_limits<uint32_t>::max()) {
+		if (capabilities.currentExtent.width == (std::numeric_limits<uint32_t>::max)()) {
 			int width, height;
 			glfwGetFramebufferSize(window, &width, &height);
 
@@ -67,8 +67,8 @@ namespace vul::Graphics {
 			actualExtent.height = std::clamp(actualExtent.height, capabilities.minImageExtent.height, capabilities.maxImageExtent.height);
 
 			return actualExtent;
-		} else {
-			return capabilities.currentExtent;
 		}
+
+		return capabilities.currentExtent;
 	}
 }

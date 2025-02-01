@@ -18,7 +18,7 @@ namespace vul {
 
 		glm::vec3 ClearColor;
 
-		bool PreferEnergyEfficiency;
+		bool PreferPowerEfficiency;
 
 		AppSpecifications() {
 			Size = glm::ivec2{ 1280, 720 };
@@ -27,7 +27,7 @@ namespace vul {
 			Resizable = true;
 			GPURequirements = {};
 			ClearColor = glm::vec3{ 0, 0, 0 };
-			PreferEnergyEfficiency = false;
+			PreferPowerEfficiency = false;
 		}
 	};
 }

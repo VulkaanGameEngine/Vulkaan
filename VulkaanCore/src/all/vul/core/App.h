@@ -2,7 +2,9 @@
 
 #include <memory>
 
-#include <vul/graphics/Renderer.h>
+#ifdef VUL_API_VULKAN
+#include <vul/graphics/VulkanRenderer.h>
+#endif
 
 #include "AppSpecifications.h"
 

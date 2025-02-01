@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint.h>
+
 namespace vul::Graphics {
 	struct SupportsShadersRequirements {
 		bool GeometryShader;

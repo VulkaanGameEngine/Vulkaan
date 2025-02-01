@@ -6,7 +6,9 @@ namespace vul {
 	App::App(const AppSpecifications& specs) {
 		s_Instance = this;
 
-		m_Renderer = new Graphics::Renderer(specs.Size, specs.Title, specs.Resizable, specs.Version, specs.GPURequirements, specs.ClearColor, specs.PreferEnergyEfficiency);
+#ifdef VUL_API_VULKAN
+		m_Renderer = new Graphics::VulkanRenderer(specs);
+#endif
 	}
 
 	App::~App() {
@@ -19,7 +21,7 @@ namespace vul {
 			m_Renderer->Draw();
 		}
 
-		m_Renderer->WaitIdle();
+		m_Renderer->WaitUntilIdle();
 
 		return 0;
 	}
