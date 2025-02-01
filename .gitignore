@@ -1,0 +1,12 @@
+.vs/
+
+bin/
+bin-int/
+
+*/Assets/
+
+**.spv
+
+**.vcxproj
+**.vcxproj.filters
+**.vcxproj.user
