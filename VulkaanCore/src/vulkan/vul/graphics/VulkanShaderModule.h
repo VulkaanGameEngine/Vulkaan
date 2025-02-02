@@ -15,7 +15,7 @@ namespace vul::Graphics {
 		inline VkPipelineShaderStageCreateInfo GetStageCreateInfo() { return m_StageCreateInfo; }
 
 	private:
-		VkShaderModule m_Raw;
-		VkPipelineShaderStageCreateInfo m_StageCreateInfo;
+		VkShaderModule m_Raw = nullptr;
+		VkPipelineShaderStageCreateInfo m_StageCreateInfo{};
 	};
 }

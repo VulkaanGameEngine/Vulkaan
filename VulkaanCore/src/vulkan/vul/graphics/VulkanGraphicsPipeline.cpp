@@ -6,14 +6,55 @@
 #include <vul/core/App.h>
 #include <vul/core/Log.h>
 
+#include <vul/filesystem/File.h>
+
 namespace vul::Graphics {
+	VkShaderModule createShaderModule(std::vector<char> contents) {
+		VkShaderModule shaderModule;
+
+		VkShaderModuleCreateInfo createInfo{};
+		createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+		createInfo.codeSize = contents.size();
+		createInfo.pCode = reinterpret_cast<const uint32_t*>(contents.data());
+
+		if (vkCreateShaderModule(static_cast<VulkanRenderer*>(App::GetInstance()->GetRenderer())->GetLogicalDevice()->GetRaw(), &createInfo, nullptr, &shaderModule) != VK_SUCCESS) VUL_LOG_CORE_CRITICAL("Failed to create shader module!");
+
+		return shaderModule;
+	}
+
 	VulkanGraphicsPipeline::VulkanGraphicsPipeline(ShaderModule* vertexShaderModule, ShaderModule* fragmentShaderModule) {
 		VulkanShaderModule* vulkanVertexShaderModule = static_cast<VulkanShaderModule*>(vertexShaderModule);
 		VulkanShaderModule* vulkanFragmentShaderModule = static_cast<VulkanShaderModule*>(fragmentShaderModule);
 
+		VkPipelineShaderStageCreateInfo shaderStages[] = { vulkanVertexShaderModule->GetStageCreateInfo(), vulkanFragmentShaderModule->GetStageCreateInfo() };
+
 		VulkanRenderer* renderer = static_cast<VulkanRenderer*>(App::GetInstance()->GetRenderer());
 
-		VkPipelineShaderStageCreateInfo shaderStages[] = { vulkanVertexShaderModule->GetStageCreateInfo(), vulkanFragmentShaderModule->GetStageCreateInfo() };
+		//// Vertex shader
+		//Filesystem::File* vertexShaderFile = new Filesystem::File("Assets/Shaders/triangleShader-vert.spv");
+		//std::vector<char> vertShaderCode = vertexShaderFile->Read();
+		//delete vertexShaderFile;
+		//VkShaderModule vertShaderModule = createShaderModule(vertShaderCode);
+
+		//VkPipelineShaderStageCreateInfo vertShaderStageInfo{};
+		//vertShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+		//vertShaderStageInfo.stage = VK_SHADER_STAGE_VERTEX_BIT;
+		//vertShaderStageInfo.module = vertShaderModule;
+		//vertShaderStageInfo.pName = "main";
+
+		//// Fragment shader
+		//Filesystem::File* fragmentShaderFile = new Filesystem::File("Assets/Shaders/triangleShader-frag.spv");
+		//std::vector<char> fragShaderCode = fragmentShaderFile->Read();
+		//delete fragmentShaderFile;
+		//VkShaderModule fragShaderModule = createShaderModule(fragShaderCode);
+
+		//VkPipelineShaderStageCreateInfo fragShaderStageInfo{};
+		//fragShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+		//fragShaderStageInfo.stage = VK_SHADER_STAGE_FRAGMENT_BIT;
+		//fragShaderStageInfo.module = fragShaderModule;
+		//fragShaderStageInfo.pName = "main";
+
+		//VkPipelineShaderStageCreateInfo shaderStages[] = { vertShaderStageInfo, fragShaderStageInfo };
 
 		VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
 		vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
@@ -84,8 +125,8 @@ namespace vul::Graphics {
 
 		VUL_CORE_ASSERT(vkCreateGraphicsPipelines(renderer->GetLogicalDevice()->GetRaw(), VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &m_Raw) == VK_SUCCESS, "Failed to create graphics pipeline!");
 
-		delete vulkanFragmentShaderModule;
-		delete vulkanVertexShaderModule;
+		//delete vulkanFragmentShaderModule;
+		//delete vulkanVertexShaderModule;
 	}
 
 	VulkanGraphicsPipeline::~VulkanGraphicsPipeline() {
