@@ -22,6 +22,7 @@ namespace vul::Graphics {
 			m_StageCreateInfo.stage = VK_SHADER_STAGE_FRAGMENT_BIT;
 			break;
 		default:
+			VUL_LOG_CORE_WARN("Unknown shader type!");
 			break;
 		}
 		

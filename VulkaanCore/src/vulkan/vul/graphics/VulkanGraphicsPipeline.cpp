@@ -15,7 +15,7 @@ namespace vul::Graphics {
 
 		VkPipelineShaderStageCreateInfo shaderStages[] = { vulkanVertexShaderModule->GetStageCreateInfo(), vulkanFragmentShaderModule->GetStageCreateInfo() };
 
-		/*VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
+		VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
 		vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
 		vertexInputInfo.vertexBindingDescriptionCount = 0;
 		vertexInputInfo.vertexAttributeDescriptionCount = 0;
@@ -81,25 +81,6 @@ namespace vul::Graphics {
 		pipelineInfo.layout = m_Layout;
 		pipelineInfo.renderPass = renderer->GetRenderPass()->GetRaw();
 		pipelineInfo.subpass = 0;
-
-		VUL_CORE_ASSERT(vkCreateGraphicsPipelines(renderer->GetLogicalDevice()->GetRaw(), VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &m_Raw) == VK_SUCCESS, "Failed to create graphics pipeline!");*/
-
-		VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
-		pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-
-		VUL_CORE_ASSERT(vkCreatePipelineLayout(renderer->GetLogicalDevice()->GetRaw(), &pipelineLayoutInfo, nullptr, &m_Layout) == VK_SUCCESS, "Failed to create pipeline layout!");
-
-		VkPipelineShaderStageCreateInfo vert = vulkanVertexShaderModule->GetStageCreateInfo();
-
-		VkGraphicsPipelineCreateInfo pipelineInfo{};
-		pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
-		pipelineInfo.stageCount = 1;
-		pipelineInfo.pStages = &vert;  // Only a vertex shader
-		pipelineInfo.layout = m_Layout;
-		pipelineInfo.renderPass = renderer->GetRenderPass()->GetRaw();
-		pipelineInfo.subpass = 0;
-		pipelineInfo.basePipelineHandle = VK_NULL_HANDLE;
-		pipelineInfo.basePipelineIndex = -1;
 
 		VUL_CORE_ASSERT(vkCreateGraphicsPipelines(renderer->GetLogicalDevice()->GetRaw(), VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &m_Raw) == VK_SUCCESS, "Failed to create graphics pipeline!");
 
