@@ -29,9 +29,16 @@ namespace vul::Graphics {
 		m_RenderPass = new RenderPass(m_SwapChain->GetImageFormat(), m_LogicalDevice->GetRaw());
 
 		m_GraphicsPipeline = nullptr;
+
+		m_Framebuffers = new Framebuffers();
+		m_CommandPool = new CommandPool(physicalDevice);
+		m_CommandBuffer = new CommandBuffer();
 	}
 
 	VulkanRenderer::~VulkanRenderer() {
+		delete m_CommandBuffer;
+		delete m_CommandPool;
+		delete m_Framebuffers;
 		delete m_GraphicsPipeline;
 		delete m_RenderPass;
 		delete m_SwapChain;
@@ -59,6 +66,10 @@ namespace vul::Graphics {
 	}
 
 	void VulkanRenderer::SetGraphicsPipeline(GraphicsPipeline* graphicsPipeline) {
+		if (m_GraphicsPipeline != nullptr) {
+			delete m_GraphicsPipeline;
+		}
 
+		m_GraphicsPipeline = static_cast<VulkanGraphicsPipeline*>(graphicsPipeline);
 	}
 }

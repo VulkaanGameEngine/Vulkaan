@@ -1,5 +1,8 @@
 #pragma once
 
+#include "CommandBuffer.h"
+#include "CommandPool.h"
+#include "Framebuffers.h"
 #include "RenderPass.h"
 #include "Surface.h"
 #include "SwapChain.h"
@@ -28,8 +31,11 @@ namespace vul::Graphics {
 
 		virtual void SetGraphicsPipeline(GraphicsPipeline* graphicsPipeline) override;
 
+		inline Surface* GetSurface() { return m_Surface; }
 		inline LogicalDevice* GetLogicalDevice() { return m_LogicalDevice; }
+		inline SwapChain* GetSwapChain() { return m_SwapChain; }
 		inline RenderPass* GetRenderPass() { return m_RenderPass; }
+		inline CommandPool* GetCommandPool() { return m_CommandPool; }
 
 	private:
 		VulkanInstance* m_VulkanInstance;
@@ -43,5 +49,8 @@ namespace vul::Graphics {
 		SwapChain* m_SwapChain;
 		RenderPass* m_RenderPass;
 		VulkanGraphicsPipeline* m_GraphicsPipeline;
+		Framebuffers* m_Framebuffers;
+		CommandPool* m_CommandPool;
+		CommandBuffer* m_CommandBuffer;
 	};
 }

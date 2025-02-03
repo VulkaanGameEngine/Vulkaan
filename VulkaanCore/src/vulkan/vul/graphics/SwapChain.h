@@ -13,6 +13,8 @@ namespace vul::Graphics {
 		inline VkSwapchainKHR GetRaw() { return m_Raw; }
 
 		inline VkFormat GetImageFormat() { return m_ImageFormat; }
+		inline VkExtent2D GetExtent() { return m_Extent; }
+		inline std::vector<VkImageView> GetImageViews() { return m_ImageViews; }
 
 	private:
 		VkSwapchainKHR m_Raw;
